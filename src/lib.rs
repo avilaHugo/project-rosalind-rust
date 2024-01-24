@@ -29,6 +29,26 @@ impl Seq {
 
 	kmer_counter
     }
+
+    pub fn get_nuc_pair(nuc: char) -> String {
+	match nuc {
+	    'A' => String::from("T"),
+	    'C' => String::from("G"),
+	    'T' => String::from("A"),
+	    'G' => String::from("C"),
+	    _ => panic!("Unknown nuc: '{}'", nuc),
+	}
+    }
+
+    pub fn reverse_complement_dna(&self) -> String {
+	self.seq
+	    .chars()
+	    .map(|x| { Seq::get_nuc_pair(x) })
+	    .join("")
+	    .chars()
+	    .rev()
+	    .join("")
+    }
 }
 
 pub fn counting_dna_nucleotides(input_file: PathBuf) {
@@ -47,6 +67,12 @@ pub fn transcribing_dna_into_rna(input_file: PathBuf) {
 	let result = seq.seq.replace("T", "U");
 	println!("{}", result)
 }
+pub fn complementing_a_strand_of_dna(input_file: PathBuf) {
+    let content = fs::read_to_string(input_file).expect("File not found !.").trim().to_string();
+    let seq = Seq::from_str(content);
+    println!("{}", seq.reverse_complement_dna())
+    
+}
 
 #[cfg(test)]
 mod tests {
@@ -60,9 +86,8 @@ mod tests {
     }
 
     #[test]
-    fn test_transcribing_dna_into_rna(){
-	let seq = Seq::from_str("GATGGAACTTGACTACGTAAATT".to_string());
-	let result = seq.seq.replace("T", "U");
-	assert_eq!("GAUGGAACUUGACUACGUAAAUU", result)
+    fn test_reverse_complement(){
+	let seq = Seq::from_str(String::from("AAAACCCGGT"));
+	assert_eq!(String::from("ACCGGGTTTT"), seq.reverse_complement_dna())
     }
 }
