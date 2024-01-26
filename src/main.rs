@@ -21,6 +21,7 @@ fn main() {
         "DNA" => counting_dna_nucleotides(opt.input_file),
 	"RNA" => transcribing_dna_into_rna(opt.input_file),
 	"REVC" => complementing_a_strand_of_dna(opt.input_file),
+	"FIB" => rabbits_and_recurrence_relations(opt.input_file),
         _ => panic!("Problem ID unknown"),
 
     }

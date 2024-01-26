@@ -71,7 +71,30 @@ pub fn complementing_a_strand_of_dna(input_file: PathBuf) {
     let content = fs::read_to_string(input_file).expect("File not found !.").trim().to_string();
     let seq = Seq::from_str(content);
     println!("{}", seq.reverse_complement_dna())
-    
+}
+
+pub fn rabbits_and_recurrence_relations(input_file: PathBuf) {
+    let (n, k): (usize, usize) = fs::read_to_string(input_file)
+	.expect("File not found")
+	.trim()
+	.split(" ")
+	.map(|x| { x.parse::<usize>().unwrap()})
+	.collect_tuple()
+	.unwrap();
+
+    // 1    2    3    4    5
+    // 1b0a 0b1a 3b1a 3b4a 12b7a
+    // 1    1    4    7    19
+    let mut b = 1;
+    let mut a = 0;
+
+    for _ in 2..n+1 {
+	let temp_b = b;
+	b = a * k;
+	a = temp_b + a;
+    }
+
+    println!("{}", a+b)
 }
 
 #[cfg(test)]
@@ -90,4 +113,5 @@ mod tests {
 	let seq = Seq::from_str(String::from("AAAACCCGGT"));
 	assert_eq!(String::from("ACCGGGTTTT"), seq.reverse_complement_dna())
     }
+
 }
