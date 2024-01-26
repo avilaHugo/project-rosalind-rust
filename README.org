@@ -1,0 +1,36 @@
+#+TITLE: Project Rosalind Problem Solver
+#+AUTHOR: Hugo L. Ávila
+
+This is a simple solver that resolves the Project Rosalind questions.
+
+* Requirements
+- cargo >= 1.75.0
+  
+* Install
+  #+BEGIN_SRC bash
+    # Clone this repository
+    git clone https://github.com/avilaHugo/project-rosalind-rust.git
+    cd project-rosalind-rust
+
+    # Build the project
+    cargo build
+
+    # Test the binary
+    ./target/debug/rosalind --help
+  #+END_SRC
+* Help
+#+BEGIN_EXAMPLE
+  rosalind 0.1.0
+  Project Rosalind problem solver.
+
+  USAGE:
+      rosalind --input-file <input-file> --problem-id <problem-id>
+
+  FLAGS:
+      -h, --help       Prints help information
+      -V, --version    Prints version information
+
+  OPTIONS:
+      -i, --input-file <input-file>    Input file
+      -p, --problem-id <problem-id>    Problem id
+#+END_EXAMPLE
